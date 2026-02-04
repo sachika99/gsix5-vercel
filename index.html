@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSIX5 - Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --green: #78D23D;
+            --silver: #CBC8C3;
+            --dark-bg: #0A0A0A;
+            --card-bg: rgba(255, 255, 255, 0.02);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--white);
+            cursor: none;
+            position: relative;
+        }
+
+        /* Enhanced Custom Cursor */
+        .cursor {
+            width: 12px;
+            height: 12px;
+            background: var(--green);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--green);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0.3;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Sophisticated Background */
+        .space-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(120, 210, 61, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(203, 200, 195, 0.05) 0%, transparent 50%),
+                linear-gradient(180deg, #000000 0%, #0A0A0A 100%);
+        }
+
+        /* Animated Mesh Gradient */
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.4;
+            background: 
+                radial-gradient(at 0% 0%, rgba(120, 210, 61, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(203, 200, 195, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(120, 210, 61, 0.06) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(203, 200, 195, 0.05) 0px, transparent 50%);
+            animation: meshMove 20s ease-in-out infinite;
+        }
+
+        @keyframes meshMove {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(1deg); }
+        }
+
+        /* Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--green);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(1);
+            }
+        }
+
+        /* Minimalist Grid */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(120, 210, 61, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(120, 210, 61, 0.03) 1px, transparent 1px);
+            background-size: 100px 100px;
+            z-index: 1;
+            animation: gridPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 2;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 80px;
+        }
+
+        /* Status Badge */
+        header {
+            position: absolute;
+            top: 60px;
+            animation: fadeInDown 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .status-badge {
+            padding: 10px 24px;
+            border: 1px solid rgba(120, 210, 61, 0.3);
+            border-radius: 30px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--green);
+            background: rgba(120, 210, 61, 0.05);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(120, 210, 61, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        /* Brand Section */
+        .brand-section {
+            margin-top: 60px;      /* Add this line */
+            margin-bottom: 80px;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(80px, 18vw, 280px);
+            font-weight: 700;
+            line-height: 0.9;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--white) 0%, var(--green) 50%, var(--white) 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            animation: titleGradient 8s ease infinite, slideUpFade 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+            position: relative;
+        }
+
+        @keyframes titleGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+                filter: blur(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .launching-text {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(20px, 3vw, 36px);
+            font-weight: 300;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            color: var(--silver);
+            animation: fadeInScale 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+            position: relative;
+            padding-bottom: 25px;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+                filter: blur(5px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .launching-text::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--green), transparent);
+            animation: expandLine 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.8s both;
+        }
+
+        @keyframes expandLine {
+            to { width: 120px; }
+        }
+
+        .motto {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(15px, 2vw, 20px);
+            font-weight: 300;
+            color: rgba(203, 200, 195, 0.7);
+            letter-spacing: 0.5px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-style: italic;
+            animation: fadeIn 1.5s ease 1.2s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Countdown Section */
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            width: 100%;
+            max-width: 1100px;
+            margin-top: 20px;
+        }
+
+        .countdown-item {
+            position: relative;
+            text-align: center;
+            padding: 50px 30px;
+            background: var(--card-bg);
+            border: 1px solid rgba(120, 210, 61, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            animation: countdownAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        .countdown-item:nth-child(1) { animation-delay: 1.4s; }
+        .countdown-item:nth-child(2) { animation-delay: 1.5s; }
+        .countdown-item:nth-child(3) { animation-delay: 1.6s; }
+        .countdown-item:nth-child(4) { animation-delay: 1.7s; }
+
+        @keyframes countdownAppear {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .countdown-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(120, 210, 61, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .countdown-item:hover {
+            background: rgba(120, 210, 61, 0.05);
+            border-color: var(--green);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 60px rgba(120, 210, 61, 0.15);
+        }
+
+        .countdown-item:hover::before {
+            opacity: 1;
+        }
+
+        .countdown-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--green), transparent);
+            transform: scaleX(0);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .countdown-item:hover::after {
+            transform: scaleX(1);
+        }
+
+        .countdown-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(48px, 6vw, 90px);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .countdown-label {
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(203, 200, 195, 0.7);
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Decorative Elements */
+        .decoration-line {
+            position: absolute;
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--green), transparent);
+            animation: decorationPulse 3s ease-in-out infinite;
+        }
+
+        .decoration-line.top {
+            top: 40%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .decoration-line.bottom {
+            bottom: 40%;
+            right: 10%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes decorationPulse {
+            0%, 100% { opacity: 0.2; transform: scaleX(1); }
+            50% { opacity: 0.6; transform: scaleX(1.5); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 50px 50px;
+            }
+
+            .countdown {
+                gap: 25px;
+            }
+
+            .brand-section {
+                margin-bottom: 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            .cursor, .cursor-follower {
+                display: none;
+            }
+
+            .container {
+                padding: 40px 30px;
+            }
+
+            header {
+                top: 30px;
+            }
+
+            .launching-text {
+                letter-spacing: 6px;
+            }
+
+            .countdown {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .countdown-item {
+                padding: 35px 20px;
+            }
+
+            .brand-section {
+                margin-bottom: 50px;
+            }
+
+            .decoration-line {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .countdown {
+                gap: 15px;
+            }
+
+            .countdown-item {
+                padding: 30px 15px;
+            }
+
+            .launching-text {
+                letter-spacing: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursors -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Background Layers -->
+    <div class="space-bg"></div>
+    <div class="mesh-gradient"></div>
+    <div class="particles" id="particles"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Decorative Lines -->
+    <div class="decoration-line top"></div>
+    <div class="decoration-line bottom"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="status-badge">In Development</div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Brand Section -->
+            <div class="brand-section">
+                <h1 class="hero-title">GSIX5</h1>
+                <div class="launching-text">Launching Soon</div>
+            </div>
+
+            <p class="motto">"Building Tomorrow's Digital Reality"</p>
+
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Generate Floating Particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 30;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.width = Math.random() * 3 + 1 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Enhanced Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let followerX = 0, followerY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            // Smooth cursor movement
+            cursorX += (mouseX - cursorX) * 0.3;
+            cursorY += (mouseY - cursorY) * 0.3;
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            cursorFollower.style.left = followerX + 'px';
+            cursorFollower.style.top = followerY + 'px';
+
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Cursor hover effect
+        const hoverElements = document.querySelectorAll('.countdown-item, .status-badge');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.8)';
+                cursorFollower.style.opacity = '0.6';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorFollower.style.opacity = '0.3';
+            });
+        });
+
+        // Countdown Timer - Auto set to 1 month from now
+        const now = new Date();
+        const launchDate = new Date(now.getTime() + (30 * 24 * 60 * 60 * 1000));
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Parallax effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+            const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
+            
+            document.querySelector('.mesh-gradient').style.transform = 
+                `translate(${moveX}px, ${moveY}px) scale(1.1)`;
+            
+            document.querySelectorAll('.decoration-line').forEach((line, index) => {
+                const speed = (index + 1) * 5;
+                line.style.transform = `translateX(${moveX / speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
