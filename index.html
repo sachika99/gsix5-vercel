@@ -9,7 +9,7 @@
         :root {
             --black: #000000;
             --white: #FFFFFF;
-             --green: #78D23D;
+            --green: #78D23D;
             --silver: #CBC8C3;
             --dark-bg: #0A0A0A;
             --card-bg: rgba(255, 255, 255, 0.02);
@@ -60,38 +60,15 @@
             transform: translate(-50%, -50%);
         }
 
-        /* Sophisticated Background */
-        .space-bg {
+        /* Crystal Effect Background */
+        .crystal-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: 
-                radial-gradient(ellipse at 20% 30%, rgba(1, 160, 138, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(203, 200, 195, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(1, 160, 138, 0.05) 0%, transparent 70%),
-                linear-gradient(180deg, #000000 0%, #0A0A0A 50%, #000000 100%);
-        }
-
-        /* Professional Starfield */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .stars canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            background: linear-gradient(180deg, #000000 0%, #0A0A0A 50%, #000000 100%);
         }
 
         /* Sparkling Stars - Layer 1 (Small) */
@@ -221,85 +198,6 @@
                 transform: scale(1.7);
                 filter: brightness(1.5);
             }
-        }
-
-        /* Animated Mesh Gradient */
-        .mesh-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            opacity: 0.3;
-            background: 
-                radial-gradient(at 0% 0%, rgba(1, 160, 138, 0.08) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(203, 200, 195, 0.06) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(1, 160, 138, 0.05) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, rgba(203, 200, 195, 0.04) 0px, transparent 50%);
-            animation: meshMove 20s ease-in-out infinite;
-        }
-
-        @keyframes meshMove {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(1deg); }
-        }
-
-        /* Particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, rgba(1, 160, 138, 1) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0;
-            animation: particleFloat linear infinite;
-            box-shadow: 0 0 8px rgba(1, 160, 138, 0.6);
-        }
-
-        @keyframes particleFloat {
-            0% {
-                opacity: 0;
-                transform: translateY(100vh) scale(0);
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-100px) scale(1);
-            }
-        }
-
-        /* Minimalist Grid */
-        .grid-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(120, 210, 61, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(120, 210, 61, 0.03) 1px, transparent 1px);
-            background-size: 100px 100px;
-            z-index: 1;
-            animation: gridPulse 8s ease-in-out infinite;
-        }
-
-        @keyframes gridPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.5; }
         }
 
         /* Main Container */
@@ -568,32 +466,6 @@
             z-index: 1;
         }
 
-        /* Decorative Elements */
-        .decoration-line {
-            position: absolute;
-            width: 100px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--green), transparent);
-            animation: decorationPulse 3s ease-in-out infinite;
-        }
-
-        .decoration-line.top {
-            top: 40%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .decoration-line.bottom {
-            bottom: 40%;
-            right: 10%;
-            animation-delay: 1.5s;
-        }
-
-        @keyframes decorationPulse {
-            0%, 100% { opacity: 0.2; transform: scaleX(1); }
-            50% { opacity: 0.6; transform: scaleX(1.5); }
-        }
-
         /* Responsive */
         @media (max-width: 1024px) {
             .container {
@@ -645,11 +517,6 @@
                 margin-bottom: 50px;
             }
 
-            .decoration-line {
-                display: none;
-            }
-
-            /* Larger GSIX5 title on mobile */
             .hero-title {
                 font-size: 120px;
                 font-weight: 800;
@@ -679,13 +546,12 @@
                 margin-top: 40px;
             }
 
-            /* Even larger and more professional GSIX5 on small mobile */
             .hero-title {
                 font-size: 100px;
                 font-weight: 900;
                 letter-spacing: -0.04em;
                 margin-bottom: 25px;
-                text-shadow: 0 0 40px rgba(1, 160, 138, 0.3);
+                text-shadow: 0 0 40px rgba(120, 210, 61, 0.3);
             }
         }
     </style>
@@ -695,21 +561,13 @@
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
-    <!-- Background Layers -->
-    <div class="space-bg"></div>
+    <!-- Crystal Background -->
+    <div class="crystal-bg"></div>
     
-    <!-- Star Layers -->
+    <!-- Star Layers (Crystal Effect) -->
     <div class="star-layer-1" id="starLayer1"></div>
     <div class="star-layer-2" id="starLayer2"></div>
     <div class="star-layer-3" id="starLayer3"></div>
-    
-    <div class="mesh-gradient"></div>
-    <div class="particles" id="particles"></div>
-    <div class="grid-overlay"></div>
-
-    <!-- Decorative Lines -->
-    <div class="decoration-line top"></div>
-    <div class="decoration-line bottom"></div>
 
     <div class="container">
         <!-- Header -->
@@ -749,8 +607,7 @@
     </div>
 
     <script>
-        // Generate Professional Sparkling Stars Based on Screen Size
-        
+        // Generate Professional Sparkling Stars (Crystal Effect)
         function generateStars() {
             const starLayer1 = document.getElementById('starLayer1');
             const starLayer2 = document.getElementById('starLayer2');
@@ -763,18 +620,16 @@
             
             // Calculate number of stars based on screen area
             const screenArea = window.innerWidth * window.innerHeight;
-            const baseArea = 1920 * 1080; // Full HD as base
+            const baseArea = 1920 * 1080;
             const ratio = screenArea / baseArea;
             
-            // Adjust star count based on screen size
             const smallStarCount = Math.floor(200 * ratio);
             const mediumStarCount = Math.floor(100 * ratio);
             const largeStarCount = Math.floor(40 * ratio);
             
-            // Array of sparkle animation names
             const sparkleAnimations = ['sparkle-1', 'sparkle-2', 'sparkle-3', 'sparkle-4', 'sparkle-5', 'sparkle-6'];
             
-            // Layer 1 - Small white stars with random sparkle
+            // Layer 1 - Small stars
             for (let i = 0; i < smallStarCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star-small';
@@ -783,16 +638,15 @@
                 star.style.width = (Math.random() * 1.5 + 0.5) + 'px';
                 star.style.height = star.style.width;
                 
-                // Random sparkle animation
                 const randomAnimation = sparkleAnimations[Math.floor(Math.random() * sparkleAnimations.length)];
-                const randomDuration = (Math.random() * 3 + 2) + 's'; // 2-5 seconds
-                const randomDelay = Math.random() * 5 + 's'; // 0-5 seconds delay
+                const randomDuration = (Math.random() * 3 + 2) + 's';
+                const randomDelay = Math.random() * 5 + 's';
                 
                 star.style.animation = `${randomAnimation} ${randomDuration} ease-in-out ${randomDelay} infinite`;
                 starLayer1.appendChild(star);
             }
 
-            // Layer 2 - Medium white stars with random sparkle
+            // Layer 2 - Medium stars
             for (let i = 0; i < mediumStarCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star-medium';
@@ -801,16 +655,15 @@
                 star.style.width = (Math.random() * 2 + 1.5) + 'px';
                 star.style.height = star.style.width;
                 
-                // Random sparkle animation
                 const randomAnimation = sparkleAnimations[Math.floor(Math.random() * sparkleAnimations.length)];
-                const randomDuration = (Math.random() * 4 + 3) + 's'; // 3-7 seconds
-                const randomDelay = Math.random() * 6 + 's'; // 0-6 seconds delay
+                const randomDuration = (Math.random() * 4 + 3) + 's';
+                const randomDelay = Math.random() * 6 + 's';
                 
                 star.style.animation = `${randomAnimation} ${randomDuration} ease-in-out ${randomDelay} infinite`;
                 starLayer2.appendChild(star);
             }
 
-            // Layer 3 - Large accent white stars with random sparkle
+            // Layer 3 - Large stars
             for (let i = 0; i < largeStarCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star-large';
@@ -819,40 +672,22 @@
                 star.style.width = (Math.random() * 3 + 2) + 'px';
                 star.style.height = star.style.width;
                 
-                // Random sparkle animation with longer durations for larger stars
                 const randomAnimation = sparkleAnimations[Math.floor(Math.random() * sparkleAnimations.length)];
-                const randomDuration = (Math.random() * 5 + 4) + 's'; // 4-9 seconds
-                const randomDelay = Math.random() * 7 + 's'; // 0-7 seconds delay
+                const randomDuration = (Math.random() * 5 + 4) + 's';
+                const randomDelay = Math.random() * 7 + 's';
                 
                 star.style.animation = `${randomAnimation} ${randomDuration} ease-in-out ${randomDelay} infinite`;
                 starLayer3.appendChild(star);
             }
         }
         
-        // Generate stars on load
         generateStars();
         
-        // Regenerate stars on window resize
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(generateStars, 500);
         });
-
-        // Generate Floating Particles
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 30;
-
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.width = Math.random() * 3 + 1 + 'px';
-            particle.style.height = particle.style.width;
-            particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
-            particle.style.animationDelay = Math.random() * 5 + 's';
-            particlesContainer.appendChild(particle);
-        }
 
         // Enhanced Custom Cursor
         const cursor = document.querySelector('.cursor');
@@ -867,7 +702,6 @@
         });
 
         function animateCursor() {
-            // Smooth cursor movement
             cursorX += (mouseX - cursorX) * 0.3;
             cursorY += (mouseY - cursorY) * 0.3;
             followerX += (mouseX - followerX) * 0.1;
@@ -927,20 +761,11 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-        // Parallax effect on mouse move
+        // Parallax effect for star layers
         document.addEventListener('mousemove', (e) => {
             const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
             const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
-            
-            document.querySelector('.mesh-gradient').style.transform = 
-                `translate(${moveX}px, ${moveY}px) scale(1.1)`;
-            
-            document.querySelectorAll('.decoration-line').forEach((line, index) => {
-                const speed = (index + 1) * 5;
-                line.style.transform = `translateX(${moveX / speed}px)`;
-            });
 
-            // Parallax for star layers
             const starLayer1 = document.getElementById('starLayer1');
             const starLayer2 = document.getElementById('starLayer2');
             const starLayer3 = document.getElementById('starLayer3');
