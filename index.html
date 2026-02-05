@@ -9,10 +9,19 @@
         :root {
             --black: #000000;
             --white: #FFFFFF;
-            --green: #78D23D;
+            --green: #d23d83;
             --silver: #CBC8C3;
             --dark-bg: #0A0A0A;
             --card-bg: rgba(255, 255, 255, 0.02);
+            
+            /* Spacing system */
+            --space-xs: 8px;
+            --space-sm: 12px;
+            --space-md: 20px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+            --space-2xl: 64px;
+            --space-3xl: 96px;
         }
 
         * {
@@ -21,9 +30,8 @@
             box-sizing: border-box;
         }
 
-        html, body {
-            height: 100%;
-            overflow: hidden;
+        html {
+            overflow-x: hidden;
         }
 
         body {
@@ -32,6 +40,9 @@
             color: var(--white);
             cursor: none;
             position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         /* Enhanced Custom Cursor */
@@ -204,27 +215,32 @@
         .container {
             position: relative;
             z-index: 2;
-            height: 100vh;
+            min-height: 100vh;
+            height: auto;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            padding: 60px 80px;
+            padding: var(--space-lg);
+            padding-bottom: var(--space-2xl);
         }
 
         /* Status Badge */
         header {
-            position: absolute;
-            top: 60px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding-top: var(--space-md);
+            padding-bottom: var(--space-lg);
             animation: fadeInDown 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .status-badge {
-            padding: 10px 24px;
+            padding: var(--space-sm) var(--space-lg);
             border: 1px solid rgba(120, 210, 61, 0.3);
             border-radius: 30px;
             font-size: 11px;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--green);
             background: rgba(120, 210, 61, 0.05);
@@ -269,20 +285,22 @@
             text-align: center;
             width: 100%;
             max-width: 1400px;
+            flex: 1;
+            padding: var(--space-xl) var(--space-md);
+            padding-bottom: var(--space-2xl);
         }
 
         /* Brand Section */
         .brand-section {
-            margin-top: 120px;
-            margin-bottom: 80px;
+            margin-bottom: var(--space-xl);
         }
 
         .hero-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(80px, 18vw, 280px);
+            font-size: clamp(60px, 12vw, 180px);
             font-weight: 700;
             line-height: 0.9;
-            margin-bottom: 40px;
+            margin-bottom: var(--space-lg);
             background: linear-gradient(135deg, var(--white) 0%, var(--green) 50%, var(--white) 100%);
             background-size: 200% 200%;
             -webkit-background-clip: text;
@@ -313,14 +331,14 @@
 
         .launching-text {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(20px, 3vw, 36px);
+            font-size: clamp(16px, 2vw, 28px);
             font-weight: 300;
-            letter-spacing: 12px;
+            letter-spacing: clamp(4px, 0.8vw, 10px);
             text-transform: uppercase;
             color: var(--silver);
             animation: fadeInScale 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
             position: relative;
-            padding-bottom: 25px;
+            padding-bottom: var(--space-md);
         }
 
         @keyframes fadeInScale {
@@ -349,19 +367,21 @@
         }
 
         @keyframes expandLine {
-            to { width: 120px; }
+            to { width: 100px; }
         }
 
         .motto {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(15px, 2vw, 20px);
+            font-size: clamp(12px, 1.3vw, 16px);
             font-weight: 300;
             color: rgba(203, 200, 195, 0.7);
             letter-spacing: 0.5px;
-            margin-top: 40px;
-            margin-bottom: 20px;
+            margin-top: var(--space-md);
+            margin-bottom: var(--space-xl);
             font-style: italic;
             animation: fadeIn 1.5s ease 1.2s both;
+            padding: 0 var(--space-md);
+            max-width: 600px;
         }
 
         @keyframes fadeIn {
@@ -369,35 +389,35 @@
             to { opacity: 1; }
         }
 
-        /* Countdown Section */
-        .countdown {
+        /* Feature Cards Section */
+        .features {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-md);
             width: 100%;
             max-width: 1100px;
-            margin-top: 20px;
+            padding: 0 var(--space-md);
         }
 
-        .countdown-item {
+        .feature-card {
             position: relative;
             text-align: center;
-            padding: 50px 30px;
+            padding: var(--space-lg) var(--space-md);
             background: var(--card-bg);
             border: 1px solid rgba(120, 210, 61, 0.1);
-            border-radius: 20px;
+            border-radius: 16px;
             backdrop-filter: blur(20px);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
-            animation: countdownAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+            animation: featureAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
         }
 
-        .countdown-item:nth-child(1) { animation-delay: 1.4s; }
-        .countdown-item:nth-child(2) { animation-delay: 1.5s; }
-        .countdown-item:nth-child(3) { animation-delay: 1.6s; }
-        .countdown-item:nth-child(4) { animation-delay: 1.7s; }
+        .feature-card:nth-child(1) { animation-delay: 1.4s; }
+        .feature-card:nth-child(2) { animation-delay: 1.5s; }
+        .feature-card:nth-child(3) { animation-delay: 1.6s; }
+        .feature-card:nth-child(4) { animation-delay: 1.7s; }
 
-        @keyframes countdownAppear {
+        @keyframes featureAppear {
             from {
                 opacity: 0;
                 transform: translateY(40px) scale(0.9);
@@ -408,7 +428,7 @@
             }
         }
 
-        .countdown-item::before {
+        .feature-card::before {
             content: '';
             position: absolute;
             inset: 0;
@@ -417,18 +437,18 @@
             transition: opacity 0.5s ease;
         }
 
-        .countdown-item:hover {
+        .feature-card:hover {
             background: rgba(120, 210, 61, 0.05);
             border-color: var(--green);
-            transform: translateY(-15px);
-            box-shadow: 0 20px 60px rgba(120, 210, 61, 0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(120, 210, 61, 0.15);
         }
 
-        .countdown-item:hover::before {
+        .feature-card:hover::before {
             opacity: 1;
         }
 
-        .countdown-item::after {
+        .feature-card::after {
             content: '';
             position: absolute;
             top: 0;
@@ -440,49 +460,168 @@
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .countdown-item:hover::after {
+        .feature-card:hover::after {
             transform: scaleX(1);
         }
 
-        .countdown-number {
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto var(--space-md);
+            position: relative;
+            z-index: 1;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .feature-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--green);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .feature-card:nth-child(1) .feature-icon { animation-delay: 0s; }
+        .feature-card:nth-child(2) .feature-icon { animation-delay: 0.5s; }
+        .feature-card:nth-child(3) .feature-icon { animation-delay: 1s; }
+        .feature-card:nth-child(4) .feature-icon { animation-delay: 1.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .feature-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(48px, 6vw, 90px);
-            font-weight: 700;
+            font-size: clamp(15px, 1.5vw, 19px);
+            font-weight: 600;
             color: var(--white);
-            line-height: 1;
-            margin-bottom: 18px;
+            margin-bottom: var(--space-sm);
             position: relative;
             z-index: 1;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
         }
 
-        .countdown-label {
-            font-size: 12px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+        .feature-description {
+            font-size: clamp(11px, 1.2vw, 13px);
+            line-height: 1.6;
             color: rgba(203, 200, 195, 0.7);
-            font-weight: 500;
             position: relative;
             z-index: 1;
+            font-weight: 400;
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .container {
-                padding: 50px 50px;
+        /* Responsive Styles */
+        
+        /* Large screens */
+        @media (min-width: 1400px) {
+            .features {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 1024px) and (max-width: 1399px) {
+            :root {
+                --space-xl: 40px;
+                --space-2xl: 56px;
             }
 
-            .countdown {
-                gap: 25px;
+            .container {
+                min-height: 100vh;
+                height: auto;
+                padding-bottom: var(--space-2xl);
+            }
+
+            main {
+                padding-bottom: var(--space-2xl);
+            }
+            
+            .features {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 1000px;
+            }
+        }
+
+        /* Tablets */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            :root {
+                --space-lg: 28px;
+                --space-xl: 36px;
+                --space-2xl: 48px;
+            }
+            
+            .container {
+                padding: var(--space-md);
+                padding-bottom: var(--space-2xl);
+                min-height: 100vh;
+                height: auto;
+            }
+
+            main {
+                padding: var(--space-lg) var(--space-sm);
+                padding-bottom: var(--space-2xl);
+            }
+            
+            .brand-section {
+                margin-bottom: var(--space-lg);
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 700px;
+                gap: var(--space-md);
+            }
+
+            .feature-card {
+                padding: var(--space-lg) var(--space-md);
+            }
+        }
+
+        /* Short viewport height fix - for any screen height less than 700px */
+        @media (max-height: 700px) and (min-width: 768px) {
+            .container {
+                min-height: auto;
+                height: auto;
+                justify-content: flex-start;
+                padding-top: var(--space-md);
+                padding-bottom: var(--space-2xl);
+            }
+
+            main {
+                padding-top: var(--space-lg);
+                padding-bottom: var(--space-2xl);
             }
 
             .brand-section {
-                margin-top: 80px;
-                margin-bottom: 60px;
+                margin-bottom: var(--space-md);
+            }
+
+            .hero-title {
+                margin-bottom: var(--space-md);
+            }
+
+            .motto {
+                margin-bottom: var(--space-lg);
             }
         }
 
-        @media (max-width: 768px) {
+        /* Mobile landscape and small tablets */
+        @media (max-width: 767px) {
+            :root {
+                --space-sm: 10px;
+                --space-md: 16px;
+                --space-lg: 24px;
+                --space-xl: 32px;
+                --space-2xl: 48px;
+            }
+
+            html, body {
+                overflow-x: hidden;
+            }
+
             body {
                 cursor: auto;
             }
@@ -492,66 +631,250 @@
             }
 
             .container {
-                padding: 40px 30px;
+                padding: var(--space-md);
+                padding-bottom: var(--space-xl);
+                justify-content: flex-start;
+                min-height: 100vh;
             }
 
             header {
-                top: 30px;
+                padding-top: var(--space-sm);
+                padding-bottom: var(--space-md);
             }
 
-            .launching-text {
-                letter-spacing: 6px;
+            .status-badge {
+                font-size: 9px;
+                padding: var(--space-xs) var(--space-md);
+                letter-spacing: 1.5px;
             }
 
-            .countdown {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-
-            .countdown-item {
-                padding: 35px 20px;
+            main {
+                padding: var(--space-lg) var(--space-xs);
+                padding-bottom: var(--space-xl);
+                justify-content: center;
             }
 
             .brand-section {
-                margin-top: 60px;
-                margin-bottom: 50px;
+                margin-bottom: var(--space-lg);
             }
 
             .hero-title {
-                font-size: 120px;
-                font-weight: 800;
-                letter-spacing: -0.03em;
-                margin-bottom: 30px;
+                font-size: clamp(45px, 13vw, 90px);
+                margin-bottom: var(--space-md);
+            }
+
+            .launching-text {
+                font-size: clamp(14px, 3.5vw, 22px);
+                letter-spacing: clamp(3px, 1vw, 8px);
+                padding-bottom: var(--space-sm);
+            }
+
+            .motto {
+                font-size: clamp(11px, 2.5vw, 14px);
+                margin-top: var(--space-sm);
+                margin-bottom: var(--space-lg);
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+                max-width: 100%;
+                padding: 0 var(--space-sm);
+            }
+
+            .feature-card {
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            .feature-icon {
+                width: 36px;
+                height: 36px;
+                margin-bottom: var(--space-sm);
+            }
+
+            .feature-title {
+                font-size: 15px;
+                margin-bottom: var(--space-xs);
+            }
+
+            .feature-description {
+                font-size: 11px;
+                line-height: 1.5;
             }
         }
 
-        @media (max-width: 480px) {
+        /* Small mobile devices */
+        @media (max-width: 479px) {
+            :root {
+                --space-xs: 8px;
+                --space-sm: 12px;
+                --space-md: 16px;
+                --space-lg: 24px;
+                --space-xl: 32px;
+                --space-2xl: 40px;
+            }
+
             .container {
-                padding: 30px 20px;
+                padding: var(--space-md);
+                padding-bottom: var(--space-2xl);
             }
 
-            .countdown {
-                gap: 15px;
-            }
-
-            .countdown-item {
-                padding: 30px 15px;
-            }
-
-            .launching-text {
-                letter-spacing: 4px;
-            }
-
-            .brand-section {
-                margin-top: 40px;
+            .status-badge {
+                font-size: 8px;
+                padding: 6px var(--space-sm);
+                letter-spacing: 1px;
             }
 
             .hero-title {
-                font-size: 100px;
-                font-weight: 900;
-                letter-spacing: -0.04em;
-                margin-bottom: 25px;
-                text-shadow: 0 0 40px rgba(120, 210, 61, 0.3);
+                font-size: clamp(40px, 15vw, 75px);
+                margin-bottom: var(--space-md);
+            }
+
+            .launching-text {
+                font-size: clamp(12px, 4vw, 18px);
+                letter-spacing: clamp(2px, 1.2vw, 6px);
+            }
+
+            .motto {
+                font-size: 11px;
+                margin-top: var(--space-sm);
+                margin-bottom: var(--space-lg);
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .feature-card {
+                padding: var(--space-lg) var(--space-md);
+                border-radius: 12px;
+            }
+
+            .feature-icon {
+                width: 32px;
+                height: 32px;
+                margin-bottom: var(--space-sm);
+            }
+
+            .feature-title {
+                font-size: 14px;
+                margin-bottom: var(--space-xs);
+            }
+
+            .feature-description {
+                font-size: 11px;
+                line-height: 1.5;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 359px) {
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .launching-text {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .features {
+                gap: var(--space-xs);
+            }
+
+            .feature-card {
+                padding: var(--space-sm) var(--space-xs);
+            }
+        }
+
+        /* Landscape orientation adjustments for mobile */
+        @media (max-height: 600px) and (orientation: landscape) and (max-width: 1023px) {
+            :root {
+                --space-xs: 6px;
+                --space-sm: 8px;
+                --space-md: 12px;
+                --space-lg: 16px;
+                --space-xl: 24px;
+            }
+
+            html, body {
+                overflow-y: auto;
+            }
+
+            .container {
+                padding: var(--space-sm);
+                padding-bottom: var(--space-xl);
+                min-height: auto;
+            }
+
+            header {
+                padding-top: var(--space-xs);
+                padding-bottom: var(--space-sm);
+            }
+
+            main {
+                padding: var(--space-sm) var(--space-xs);
+                padding-bottom: var(--space-lg);
+            }
+
+            .brand-section {
+                margin-bottom: var(--space-sm);
+            }
+
+            .hero-title {
+                font-size: clamp(28px, 7vh, 50px);
+                margin-bottom: var(--space-xs);
+            }
+
+            .launching-text {
+                font-size: clamp(10px, 2vh, 16px);
+                padding-bottom: var(--space-xs);
+                letter-spacing: clamp(2px, 0.5vw, 6px);
+            }
+
+            .motto {
+                font-size: clamp(9px, 1.8vh, 12px);
+                margin-top: var(--space-xs);
+                margin-bottom: var(--space-sm);
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-sm);
+            }
+
+            .feature-card {
+                padding: var(--space-sm) var(--space-xs);
+            }
+
+            .feature-icon {
+                width: 24px;
+                height: 24px;
+                margin-bottom: 4px;
+            }
+
+            .feature-title {
+                font-size: 11px;
+                margin-bottom: 4px;
+            }
+
+            .feature-description {
+                font-size: 9px;
+                line-height: 1.3;
+            }
+        }
+
+        /* High resolution displays */
+        @media (min-width: 1920px) {
+            :root {
+                --space-xl: 56px;
+                --space-2xl: 72px;
+                --space-3xl: 120px;
+            }
+
+            .features {
+                max-width: 1200px;
             }
         }
     </style>
@@ -585,22 +908,48 @@
 
             <p class="motto">"Building Tomorrow's Digital Reality"</p>
 
-            <div class="countdown">
-                <div class="countdown-item">
-                    <div class="countdown-number" id="days">00</div>
-                    <div class="countdown-label">Days</div>
+            <!-- Features Section -->
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
+                    <div class="feature-title">Lightning Fast</div>
+                    <div class="feature-description">Optimized performance for seamless user experience</div>
                 </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="hours">00</div>
-                    <div class="countdown-label">Hours</div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                            <path d="M8 21h8"></path>
+                            <path d="M12 17v4"></path>
+                        </svg>
+                    </div>
+                    <div class="feature-title">Modern Design</div>
+                    <div class="feature-description">Beautiful interfaces that inspire and engage</div>
                 </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="minutes">00</div>
-                    <div class="countdown-label">Minutes</div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <div class="feature-title">Secure</div>
+                    <div class="feature-description">Enterprise-grade security for your peace of mind</div>
                 </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="seconds">00</div>
-                    <div class="countdown-label">Seconds</div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <div class="feature-title">Innovative</div>
+                    <div class="feature-description">Cutting-edge technology pushing boundaries</div>
                 </div>
             </div>
         </main>
@@ -621,7 +970,7 @@
             // Calculate number of stars based on screen area
             const screenArea = window.innerWidth * window.innerHeight;
             const baseArea = 1920 * 1080;
-            const ratio = screenArea / baseArea;
+            const ratio = Math.min(screenArea / baseArea, 1.5); // Cap at 1.5x
             
             const smallStarCount = Math.floor(200 * ratio);
             const mediumStarCount = Math.floor(100 * ratio);
@@ -689,97 +1038,71 @@
             resizeTimeout = setTimeout(generateStars, 500);
         });
 
-        // Enhanced Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
-        let followerX = 0, followerY = 0;
+        // Enhanced Custom Cursor (disabled on mobile)
+        if (window.innerWidth > 768) {
+            const cursor = document.querySelector('.cursor');
+            const cursorFollower = document.querySelector('.cursor-follower');
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+            let followerX = 0, followerY = 0;
 
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.3;
-            cursorY += (mouseY - cursorY) * 0.3;
-            followerX += (mouseX - followerX) * 0.1;
-            followerY += (mouseY - followerY) * 0.1;
-
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
-            cursorFollower.style.left = followerX + 'px';
-            cursorFollower.style.top = followerY + 'px';
-
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        // Cursor hover effect
-        const hoverElements = document.querySelectorAll('.countdown-item, .status-badge');
-        hoverElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(2)';
-                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.8)';
-                cursorFollower.style.opacity = '0.6';
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
             });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorFollower.style.opacity = '0.3';
-            });
-        });
 
-        // Countdown Timer - Auto set to 1 month from now
-        const now = new Date();
-        const launchDate = new Date(now.getTime() + (30 * 24 * 60 * 60 * 1000));
+            function animateCursor() {
+                cursorX += (mouseX - cursorX) * 0.3;
+                cursorY += (mouseY - cursorY) * 0.3;
+                followerX += (mouseX - followerX) * 0.1;
+                followerY += (mouseY - followerY) * 0.1;
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = launchDate - now;
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                cursorFollower.style.left = followerX + 'px';
+                cursorFollower.style.top = followerY + 'px';
 
-            if (distance < 0) {
-                document.getElementById('days').textContent = '00';
-                document.getElementById('hours').textContent = '00';
-                document.getElementById('minutes').textContent = '00';
-                document.getElementById('seconds').textContent = '00';
-                return;
+                requestAnimationFrame(animateCursor);
             }
+            animateCursor();
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            // Cursor hover effect
+            const hoverElements = document.querySelectorAll('.feature-card, .status-badge');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.8)';
+                    cursorFollower.style.opacity = '0.6';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorFollower.style.opacity = '0.3';
+                });
+            });
         }
 
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+        // Parallax effect for star layers (disabled on mobile for performance)
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
+                const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+                const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
 
-        // Parallax effect for star layers
-        document.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
-            const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
-
-            const starLayer1 = document.getElementById('starLayer1');
-            const starLayer2 = document.getElementById('starLayer2');
-            const starLayer3 = document.getElementById('starLayer3');
-            
-            if (starLayer1) {
-                starLayer1.style.transform = `translate(${moveX * 0.02}px, ${moveY * 0.02}px)`;
-            }
-            if (starLayer2) {
-                starLayer2.style.transform = `translate(${moveX * 0.05}px, ${moveY * 0.05}px)`;
-            }
-            if (starLayer3) {
-                starLayer3.style.transform = `translate(${moveX * 0.08}px, ${moveY * 0.08}px)`;
-            }
-        });
+                const starLayer1 = document.getElementById('starLayer1');
+                const starLayer2 = document.getElementById('starLayer2');
+                const starLayer3 = document.getElementById('starLayer3');
+                
+                if (starLayer1) {
+                    starLayer1.style.transform = `translate(${moveX * 0.02}px, ${moveY * 0.02}px)`;
+                }
+                if (starLayer2) {
+                    starLayer2.style.transform = `translate(${moveX * 0.05}px, ${moveY * 0.05}px)`;
+                }
+                if (starLayer3) {
+                    starLayer3.style.transform = `translate(${moveX * 0.08}px, ${moveY * 0.08}px)`;
+                }
+            });
+        }
     </script>
 </body>
 </html>
