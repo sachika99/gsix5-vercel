@@ -391,20 +391,30 @@
             }
         }
 
+        /* Breathing underline animation */
         .launching-text::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 0;
+            width: 100px;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--green), transparent);
-            animation: expandLine 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.8s both;
+            animation: breathingLine 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
 
-        @keyframes expandLine {
-            to { width: 100px; }
+        @keyframes breathingLine {
+            0%, 100% { 
+                width: 60px;
+                opacity: 0.3;
+                box-shadow: 0 0 6px rgba(210, 61, 131, 0.2);
+            }
+            50% { 
+                width: 220px;
+                opacity: 1;
+                box-shadow: 0 0 30px rgba(210, 61, 131, 0.9);
+            }
         }
 
         .motto {
@@ -999,6 +1009,15 @@
     </div>
 
     <script>
+        // Seeded random number generator for consistent star positions
+        function seededRandom(seed) {
+            let state = seed;
+            return function() {
+                state = (state * 9301 + 49297) % 233280;
+                return state / 233280;
+            };
+        }
+
         // Generate Professional Sparkling Stars (Crystal Effect)
         function generateStars() {
             const starLayer1 = document.getElementById('starLayer1');
@@ -1009,6 +1028,9 @@
             starLayer1.innerHTML = '';
             starLayer2.innerHTML = '';
             starLayer3.innerHTML = '';
+            
+            // Use seeded random for consistent positions
+            const random = seededRandom(12345);
             
             // Calculate number of stars based on screen area
             const screenArea = window.innerWidth * window.innerHeight;
@@ -1025,14 +1047,14 @@
             for (let i = 0; i < smallStarCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star-small';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = (Math.random() * 1.5 + 0.5) + 'px';
+                star.style.left = random() * 100 + '%';
+                star.style.top = random() * 100 + '%';
+                star.style.width = (random() * 1.5 + 0.5) + 'px';
                 star.style.height = star.style.width;
                 
-                const randomAnimation = sparkleAnimations[Math.floor(Math.random() * sparkleAnimations.length)];
-                const randomDuration = (Math.random() * 3 + 2) + 's';
-                const randomDelay = Math.random() * 5 + 's';
+                const randomAnimation = sparkleAnimations[Math.floor(random() * sparkleAnimations.length)];
+                const randomDuration = (random() * 3 + 2) + 's';
+                const randomDelay = random() * 5 + 's';
                 
                 star.style.animation = `${randomAnimation} ${randomDuration} ease-in-out ${randomDelay} infinite`;
                 starLayer1.appendChild(star);
@@ -1042,14 +1064,14 @@
             for (let i = 0; i < mediumStarCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star-medium';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = (Math.random() * 2 + 1.5) + 'px';
+                star.style.left = random() * 100 + '%';
+                star.style.top = random() * 100 + '%';
+                star.style.width = (random() * 2 + 1.5) + 'px';
                 star.style.height = star.style.width;
                 
-                const randomAnimation = sparkleAnimations[Math.floor(Math.random() * sparkleAnimations.length)];
-                const randomDuration = (Math.random() * 4 + 3) + 's';
-                const randomDelay = Math.random() * 6 + 's';
+                const randomAnimation = sparkleAnimations[Math.floor(random() * sparkleAnimations.length)];
+                const randomDuration = (random() * 4 + 3) + 's';
+                const randomDelay = random() * 6 + 's';
                 
                 star.style.animation = `${randomAnimation} ${randomDuration} ease-in-out ${randomDelay} infinite`;
                 starLayer2.appendChild(star);
@@ -1059,14 +1081,14 @@
             for (let i = 0; i < largeStarCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star-large';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = (Math.random() * 3 + 2) + 'px';
+                star.style.left = random() * 100 + '%';
+                star.style.top = random() * 100 + '%';
+                star.style.width = (random() * 3 + 2) + 'px';
                 star.style.height = star.style.width;
                 
-                const randomAnimation = sparkleAnimations[Math.floor(Math.random() * sparkleAnimations.length)];
-                const randomDuration = (Math.random() * 5 + 4) + 's';
-                const randomDelay = Math.random() * 7 + 's';
+                const randomAnimation = sparkleAnimations[Math.floor(random() * sparkleAnimations.length)];
+                const randomDuration = (random() * 5 + 4) + 's';
+                const randomDelay = random() * 7 + 's';
                 
                 star.style.animation = `${randomAnimation} ${randomDuration} ease-in-out ${randomDelay} infinite`;
                 starLayer3.appendChild(star);
@@ -1168,9 +1190,6 @@
                 });
             });
         }
-
-        // Parallax effect for star layers (disabled on mobile for performance)
-        // REMOVED - This was causing the background to move
     </script>
 </body>
 </html>
