@@ -83,84 +83,6 @@
             overflow: hidden;
         }
 
-        /* Fancy Animated Gradient Orbs */
-        .gradient-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
-            animation: float-orb 20s ease-in-out infinite;
-        }
-
-        .orb-1 {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(210, 61, 131, 0.4), transparent);
-            top: -10%;
-            left: -10%;
-            animation-delay: 0s;
-        }
-
-        .orb-2 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(210, 61, 131, 0.3), transparent);
-            bottom: -10%;
-            right: -10%;
-            animation-delay: 5s;
-            animation-duration: 25s;
-        }
-
-        .orb-3 {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: 10s;
-            animation-duration: 30s;
-        }
-
-        @keyframes float-orb {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            25% {
-                transform: translate(30px, -30px) scale(1.1);
-            }
-            50% {
-                transform: translate(-20px, 20px) scale(0.9);
-            }
-            75% {
-                transform: translate(20px, 30px) scale(1.05);
-            }
-        }
-
-        /* Geometric Grid Pattern */
-        .grid-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(210, 61, 131, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(210, 61, 131, 0.03) 1px, transparent 1px);
-            background-size: 100px 100px;
-            opacity: 0.3;
-            animation: grid-pulse 8s ease-in-out infinite;
-        }
-
-        @keyframes grid-pulse {
-            0%, 100% {
-                opacity: 0.2;
-            }
-            50% {
-                opacity: 0.4;
-            }
-        }
-
         /* Sparkling Stars - Layer 1 (Small) - FIXED */
         .star-layer-1 {
             position: fixed;
@@ -992,52 +914,6 @@
                 max-width: 1200px;
             }
         }
-
-        /* Touch Ripple Effect */
-        .touch-ripple {
-            position: fixed;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(210, 61, 131, 0.4), rgba(210, 61, 131, 0.2), transparent);
-            pointer-events: none;
-            z-index: 9997;
-            animation: ripple-expand 1.2s ease-out forwards;
-        }
-
-        @keyframes ripple-expand {
-            0% {
-                width: 0;
-                height: 0;
-                opacity: 1;
-            }
-            100% {
-                width: 300px;
-                height: 300px;
-                opacity: 0;
-            }
-        }
-
-        /* Touch Particle Effect */
-        .touch-particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: var(--green);
-            pointer-events: none;
-            z-index: 9996;
-            box-shadow: 0 0 10px rgba(210, 61, 131, 0.8);
-        }
-
-        @keyframes particle-burst {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--tx), var(--ty)) scale(0);
-            }
-        }
     </style>
 </head>
 <body>
@@ -1046,14 +922,7 @@
     <div class="cursor-follower"></div>
 
     <!-- Crystal Background -->
-    <div class="crystal-bg">
-        <!-- Gradient Orbs -->
-        <div class="gradient-orb orb-1"></div>
-        <div class="gradient-orb orb-2"></div>
-        <div class="gradient-orb orb-3"></div>
-        <!-- Grid Pattern -->
-        <div class="grid-pattern"></div>
-    </div>
+    <div class="crystal-bg"></div>
     
     <!-- Star Layers (Crystal Effect) -->
     <div class="star-layer-1" id="starLayer1"></div>
@@ -1308,82 +1177,6 @@
                 });
             });
         }
-
-        // Touch Interaction Effects
-        function createTouchRipple(x, y) {
-            const ripple = document.createElement('div');
-            ripple.className = 'touch-ripple';
-            ripple.style.left = (x - 150) + 'px';
-            ripple.style.top = (y - 150) + 'px';
-            document.body.appendChild(ripple);
-
-            setTimeout(() => {
-                ripple.remove();
-            }, 1200);
-        }
-
-        function createTouchParticles(x, y) {
-            const particleCount = 8;
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'touch-particle';
-                
-                const angle = (Math.PI * 2 * i) / particleCount;
-                const distance = 50 + Math.random() * 50;
-                const tx = Math.cos(angle) * distance;
-                const ty = Math.sin(angle) * distance;
-                
-                particle.style.left = x + 'px';
-                particle.style.top = y + 'px';
-                particle.style.setProperty('--tx', tx + 'px');
-                particle.style.setProperty('--ty', ty + 'px');
-                particle.style.animation = `particle-burst ${0.8 + Math.random() * 0.4}s ease-out forwards`;
-                
-                document.body.appendChild(particle);
-
-                setTimeout(() => {
-                    particle.remove();
-                }, 1200);
-            }
-        }
-
-        // Touch event listeners
-        let touchTimer;
-        document.addEventListener('touchstart', (e) => {
-            const touch = e.touches[0];
-            createTouchRipple(touch.clientX, touch.clientY);
-            
-            // Create particles on long press
-            touchTimer = setTimeout(() => {
-                createTouchParticles(touch.clientX, touch.clientY);
-            }, 500);
-        });
-
-        document.addEventListener('touchend', () => {
-            clearTimeout(touchTimer);
-        });
-
-        document.addEventListener('touchmove', (e) => {
-            clearTimeout(touchTimer);
-            
-            // Occasional ripples while moving
-            if (Math.random() > 0.9) {
-                const touch = e.touches[0];
-                createTouchRipple(touch.clientX, touch.clientY);
-            }
-        });
-
-        // Feature card touch effects
-        const featureCards = document.querySelectorAll('.feature-card');
-        featureCards.forEach(card => {
-            card.addEventListener('touchstart', (e) => {
-                e.currentTarget.style.transform = 'translateY(-5px) scale(0.98)';
-            });
-            
-            card.addEventListener('touchend', (e) => {
-                e.currentTarget.style.transform = '';
-            });
-        });
     </script>
 </body>
 </html>
