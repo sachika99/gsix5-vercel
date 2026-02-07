@@ -71,25 +71,27 @@
             transform: translate(-50%, -50%);
         }
 
-        /* Crystal Effect Background */
+        /* Crystal Effect Background - FIXED */
         .crystal-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 0;
             background: linear-gradient(180deg, #000000 0%, #0A0A0A 50%, #000000 100%);
+            overflow: hidden;
         }
 
-        /* Sparkling Stars - Layer 1 (Small) */
+        /* Sparkling Stars - Layer 1 (Small) - FIXED */
         .star-layer-1 {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 1;
+            overflow: hidden;
         }
 
         .star-small {
@@ -100,14 +102,15 @@
             opacity: 0.8;
         }
 
-        /* Sparkling Stars - Layer 2 (Medium) */
+        /* Sparkling Stars - Layer 2 (Medium) - FIXED */
         .star-layer-2 {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 1;
+            overflow: hidden;
         }
 
         .star-medium {
@@ -118,14 +121,15 @@
             opacity: 0.8;
         }
 
-        /* Sparkling Stars - Layer 3 (Large Accent) */
+        /* Sparkling Stars - Layer 3 (Large Accent) - FIXED */
         .star-layer-3 {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 1;
+            overflow: hidden;
         }
 
         .star-large {
@@ -208,6 +212,39 @@
                 opacity: 1;
                 transform: scale(1.7);
                 filter: brightness(1.5);
+            }
+        }
+
+        /* Shooting Star Animation */
+        .shooting-star {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.5), transparent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: shoot 2s ease-out infinite;
+            box-shadow: 
+                0 0 2px 1px rgba(255, 255, 255, 0.4),
+                0 0 4px 1px rgba(210, 61, 131, 0.2);
+        }
+
+        @keyframes shoot {
+            0% {
+                opacity: 0;
+                transform: translateX(0) translateY(0) rotate(-45deg);
+                width: 0;
+            }
+            5% {
+                opacity: 1;
+                width: var(--star-width);
+            }
+            70% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-200px) translateY(200px) rotate(-45deg);
+                width: var(--star-width);
             }
         }
 
@@ -403,10 +440,11 @@
             position: relative;
             text-align: center;
             padding: var(--space-lg) var(--space-md);
-            background: var(--card-bg);
-            border: 1px solid rgba(120, 210, 61, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(210, 61, 131, 0.15);
             border-radius: 16px;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
             animation: featureAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
@@ -432,16 +470,18 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(120, 210, 61, 0.1), transparent);
+            background: linear-gradient(135deg, rgba(210, 61, 131, 0.1), transparent);
             opacity: 0;
             transition: opacity 0.5s ease;
         }
 
         .feature-card:hover {
-            background: rgba(120, 210, 61, 0.05);
-            border-color: var(--green);
+            background: rgba(210, 61, 131, 0.08);
+            border-color: rgba(210, 61, 131, 0.4);
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(120, 210, 61, 0.15);
+            box-shadow: 0 15px 40px rgba(210, 61, 131, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         .feature-card:hover::before {
@@ -891,6 +931,9 @@
     <div class="star-layer-1" id="starLayer1"></div>
     <div class="star-layer-2" id="starLayer2"></div>
     <div class="star-layer-3" id="starLayer3"></div>
+    
+    <!-- Shooting Stars Layer -->
+    <div class="star-layer-3" id="shootingStarsLayer"></div>
 
     <div class="container">
         <!-- Header -->
@@ -1032,6 +1075,50 @@
         
         generateStars();
         
+        // Generate Shooting Stars
+        function createShootingStar() {
+            const shootingStarsLayer = document.getElementById('shootingStarsLayer');
+            if (!shootingStarsLayer) return;
+            
+            const star = document.createElement('div');
+            star.className = 'shooting-star';
+            
+            // Completely random starting position anywhere on screen
+            star.style.left = (Math.random() * 100) + '%';
+            star.style.top = (Math.random() * 100) + '%';
+            
+            // Smaller, more natural width
+            const width = Math.random() * 40 + 30;
+            star.style.setProperty('--star-width', width + 'px');
+            star.style.width = '0px'; // Starts at 0, grows in animation
+            
+            // Faster, more natural duration
+            const duration = Math.random() * 1 + 1.5;
+            star.style.animationDuration = duration + 's';
+            
+            // Random angle variation (diagonal directions)
+            const angleVariation = (Math.random() - 0.5) * 90;
+            star.style.transform = `rotate(${-45 + angleVariation}deg)`;
+            
+            shootingStarsLayer.appendChild(star);
+            
+            // Remove the star after animation completes
+            setTimeout(() => {
+                star.remove();
+            }, duration * 1000);
+        }
+        
+        // Create shooting stars periodically
+        function startShootingStars() {
+            createShootingStar();
+            // Random interval between 4-12 seconds (less frequent)
+            const nextInterval = Math.random() * 8000 + 4000;
+            setTimeout(startShootingStars, nextInterval);
+        }
+        
+        // Start shooting stars after a delay
+        setTimeout(startShootingStars, 3000);
+        
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
@@ -1083,26 +1170,7 @@
         }
 
         // Parallax effect for star layers (disabled on mobile for performance)
-        if (window.innerWidth > 768) {
-            document.addEventListener('mousemove', (e) => {
-                const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
-                const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
-
-                const starLayer1 = document.getElementById('starLayer1');
-                const starLayer2 = document.getElementById('starLayer2');
-                const starLayer3 = document.getElementById('starLayer3');
-                
-                if (starLayer1) {
-                    starLayer1.style.transform = `translate(${moveX * 0.02}px, ${moveY * 0.02}px)`;
-                }
-                if (starLayer2) {
-                    starLayer2.style.transform = `translate(${moveX * 0.05}px, ${moveY * 0.05}px)`;
-                }
-                if (starLayer3) {
-                    starLayer3.style.transform = `translate(${moveX * 0.08}px, ${moveY * 0.08}px)`;
-                }
-            });
-        }
+        // REMOVED - This was causing the background to move
     </script>
 </body>
 </html>
