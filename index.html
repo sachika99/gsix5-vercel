@@ -391,30 +391,17 @@
             }
         }
 
-        /* Breathing underline animation */
+        /* Static underline */
         .launching-text::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
+            width: 150px;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--green), transparent);
-            animation: breathingLine 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        @keyframes breathingLine {
-            0%, 100% { 
-                width: 60px;
-                opacity: 0.3;
-                box-shadow: 0 0 6px rgba(210, 61, 131, 0.2);
-            }
-            50% { 
-                width: 220px;
-                opacity: 1;
-                box-shadow: 0 0 30px rgba(210, 61, 131, 0.9);
-            }
+            opacity: 0.8;
         }
 
         .motto {
